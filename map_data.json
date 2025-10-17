@@ -1,0 +1,36 @@
+{
+  "hexes": {
+    "0,-1": {"resource": "mountains", "number": 6},
+    "-1,0": {"resource": "fields", "number": 12},
+    "0,1": {"resource": "hills", "number": 3},
+    "1,0": {"resource": "fields", "number": 2},
+
+    "0, 3": {"resource": "pasture", "number": 12},
+    "1, 2": {"resource": "forest", "number": 10},
+    "2, 1": {"resource": "pasture", "number": 5},
+    "2, -1": {"resource": "pasture", "number": 4},
+    "1, -2": {"resource": "forest", "number": 9},
+    "0, -3": {"resource": "hills", "number": 5},
+    "-1, -2": {"resource": "pasture", "number": 9},
+    "-2, -1": {"resource": "hills", "number": 8},
+    "-2, 1": {"resource": "forest", "number": 10},
+    "-1, 2": {"resource": "hills", "number": 11},
+
+    "0, 5": {"resource": "pasture", "number": 3},
+    "1, 4": {"resource": "fields", "number": 9},
+    "2, 3": {"resource": "mountains", "number": 8},
+    "3, 2": {"resource": "forest", "number": 11},
+    "3, 0": {"resource": "fields", "number": 11},
+    "3, -2": {"resource": "mountains", "number": 10},
+    "2, -3": {"resource": "hills", "number": 6},
+    "1, -4": {"resource": "desert", "number": 7},
+    "0, -5": {"resource": "forest", "number": 3},
+    "-1, -4": {"resource": "fields", "number": 8},
+    "-2, -3": {"resource": "mountains", "number": 4},
+    "-3, -2": {"resource": "fields", "number": 2},
+    "-3, 0": {"resource": "mountains", "number": 5},
+    "-3, 2": {"resource": "pasture", "number": 4},
+    "-2, 3": {"resource": "desert", "number": 7},
+    "-1, 4" : {"resource": "forest", "number": 6}
+  }
+}
