@@ -1,7 +1,9 @@
+# map_editor.py
 import tkinter as tk
 from tkinter import ttk, messagebox
 import json
 import math
+from gui_menu import CatanCalculationMenu
 
 # Цвета ресурсов
 RESOURCE_COLORS = {
@@ -21,14 +23,12 @@ HEX_COORDS = [
 
     (3, 0), (2, 1), (1, 2), (0, 3), (-1, 3), (-2, 3), (-3, 3), (-3, 2), (-3, 1), (-2, 0), (-1, -1), (0, -2), (1, -2), (2, -2), (3, -2), (3, -1)  
 ]
-
-# Убираем дубликаты и оставляем только уникальные
-HEX_COORDS = list(set(HEX_COORDS))
+HEX_COORDS = list(set(HEX_COORDS))  # Уникальные
 
 RESOURCES = ["mountains", "fields", "hills", "pasture", "forest", "desert"]
 NUMBERS = [2, 3, 4, 5, 6, 8, 9, 10, 11, 12]
 
-class CatanMapEditor_CustomCoords:
+class CatanMapEditor:
     def __init__(self, root):
         self.root = root
         self.root.title("Catan — твоя система координат")
@@ -50,7 +50,7 @@ class CatanMapEditor_CustomCoords:
 
         tk.Label(control_frame, text="Редактор по твоей сетке", font=("Arial", 12, "bold")).pack(pady=(0, 15))
 
-        self.export_btn = tk.Button(control_frame, text="Экспорт в JSON", command=self.export_json, height=2)
+        self.export_btn = tk.Button(control_frame, text="Начать расчет", command=self.start_calculation, height=2)
         self.export_btn.pack(pady=5, fill=tk.X)
 
         self.clear_btn = tk.Button(control_frame, text="Очистить всё", command=self.clear_all, height=2)
@@ -173,11 +173,21 @@ class CatanMapEditor_CustomCoords:
 
         try:
             # Сохраняем в файл map_data.json в текущей директории
-            with open("map_data.json", "w", encoding="utf-8") as f:
+            with open("test_map_data.json", "w", encoding="utf-8") as f:
                 json.dump(output, f, indent=2, ensure_ascii=False)
             messagebox.showinfo("Успех", "Карта успешно сохранена в файл:\nmap_data.json")
         except Exception as e:
             messagebox.showerror("Ошибка", f"Не удалось сохранить файл:\n{e}")
+
+    def start_calculation(self):
+        # Сохраняем карту
+        self.export_json()
+
+        # Запускаем GUI-меню расчёта
+        try:
+            CatanCalculationMenu(self.root)
+        except Exception as e:
+            messagebox.showerror("Ошибка", f"Не удалось запустить расчёт:\n{e}")
 
     def clear_all(self):
         if messagebox.askyesno("Очистка", "Удалить все данные с карты?"):
@@ -186,7 +196,8 @@ class CatanMapEditor_CustomCoords:
                 self.canvas.itemconfig(poly_id, fill="white")
                 self.canvas.itemconfig(text_id, text="")
 
-if __name__ == "__main__":
+# Функция для запуска редактора извне
+def open_map_editor():
     root = tk.Tk()
-    app = CatanMapEditor_CustomCoords(root)
+    app = CatanMapEditor(root)
     root.mainloop()

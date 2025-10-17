@@ -2,6 +2,7 @@ from data_io import load_map_from_json, load_structure
 from utils import build_hex_id_to_data, calculate_resource_rarity
 from config import DEBUG
 from core import find_best_single_placement, find_best_start, find_best_city_given_my_settlement
+import map_editor
 
 def main():
     map_data = load_map_from_json("map_data.json")
@@ -130,4 +131,4 @@ def main():
             print("❌ Неверный выбор. Попробуйте снова.")
 
 if __name__ == "__main__":
-    main()
+    map_editor.open_map_editor()
