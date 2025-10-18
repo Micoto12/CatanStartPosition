@@ -173,14 +173,13 @@ class CatanMapEditor:
 
         try:
             # Сохраняем в файл map_data.json в текущей директории
-            with open("test_map_data.json", "w", encoding="utf-8") as f:
+            with open("test_map_data.json", "w", encoding="utf-8") as f: #Поменять test_map_data.json >> map_data.json
                 json.dump(output, f, indent=2, ensure_ascii=False)
             messagebox.showinfo("Успех", "Карта успешно сохранена в файл:\nmap_data.json")
         except Exception as e:
             messagebox.showerror("Ошибка", f"Не удалось сохранить файл:\n{e}")
 
     def start_calculation(self):
-        # Сохраняем карту
         self.export_json()
 
         # Запускаем GUI-меню расчёта

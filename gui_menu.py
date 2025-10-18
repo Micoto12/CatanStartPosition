@@ -2,6 +2,7 @@
 import tkinter as tk
 from tkinter import ttk, messagebox, scrolledtext
 import logging
+import config
 
 from data_io.load_map import load_map_from_json
 from data_io.load_structure import load_structure
@@ -12,7 +13,6 @@ from core.search import (
     calculate_resource_rarity
 )
 from utils.helpers import build_hex_id_to_data
-import config
 
 class CatanCalculationMenu:
     def __init__(self, parent):
@@ -32,6 +32,21 @@ class CatanCalculationMenu:
             return
 
         self.create_widgets()
+
+    def toggle_debug(self):
+        config.DEBUG = self.debug_var.get()
+        root_logger = logging.getLogger()
+
+        if config.DEBUG:
+            root_logger.setLevel(logging.DEBUG)
+            # Убедимся, что есть хотя бы один обработчик
+            if not root_logger.handlers:
+                handler = logging.StreamHandler()
+                handler.setFormatter(logging.Formatter('%(levelname)s: %(message)s'))
+                root_logger.addHandler(handler)
+            logging.debug("Логирование включено")
+        else:
+            root_logger.setLevel(logging.CRITICAL + 1)  # выше CRITICAL — ничего не выводится
 
     def create_widgets(self):
         # Верхняя панель: управление
@@ -68,15 +83,7 @@ class CatanCalculationMenu:
         self.result_text.pack(padx=10, pady=(0, 10), fill=tk.BOTH, expand=True)
 
         # Обработка изменения типа расчёта
-        self.calc_type.trace("w", self.toggle_my_settlement_input)
-
-    def toggle_my_settlement_input(self, *args):
-        if self.calc_type.get() == "city_with_my":
-            self.my_settlement_label.grid(row=4, column=2, padx=(10, 0))
-            self.my_settlement_entry.grid(row=4, column=3)
-        else:
-            self.my_settlement_label.grid_forget()
-            self.my_settlement_entry.grid_forget()
+        self.calc_type.trace("w", self.toggle_debug)
 
     def set_occupied(self):
         user_input = self.occupied_entry.get().strip()

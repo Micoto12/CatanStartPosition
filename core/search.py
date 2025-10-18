@@ -23,11 +23,6 @@ def find_best_single_placement(structure, hex_id_to_data, occupied_vertices, is_
     return best_vertex
 
 def find_best_city_given_my_settlement(structure, hex_id_to_data, occupied_vertices, my_settlement_top_id):
-    """
-    Ищет лучшее место под город, учитывая:
-    - уже поставленное своё поселение (my_settlement_top_id),
-    - занятые другими игроками вершины (occupied_vertices).
-    """
     # Все занятые вершины: чужие + моё поселение
     all_occupied = occupied_vertices | {my_settlement_top_id}
     available = get_available_vertices(structure, all_occupied)
